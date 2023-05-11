@@ -41,10 +41,10 @@ class PortfolioOptimize:
     def set(self, data, stock_list):
         col = [i for i in data.columns]
         '''the Date and stock_list must in the columns'''
-        if 'Date' not in data.columns:
+        if 'Date' not in col:
             assert IndexError('Date is not in the columns of dataframe')
         for ts in stock_list:
-            if ts not in data.columns:
+            if ts not in col:
                 assert IndexError(f'the ts:{ts} is not in the columns of dataframe')
         self.data = data.copy()
         self.stock_list = stock_list
@@ -147,7 +147,6 @@ class PortfolioOptimize:
         weights_values = torch.softmax(weights, dim=0).detach().numpy().reshape(-1, len(stock))
         weights_table = pd.DataFrame(weights_values, columns=stock, index=['weights'])
         print(weights_table)
-
 
 '''test example using this tool'''
 if __name__=='__main__':
